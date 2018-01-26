@@ -13,17 +13,30 @@ It prints the following loop:
 
 Each time step
   Concentrations of each ion
+  
       in each compartment
+      
         For each y coordinate
+        
             The concentration of each x coordinate in a comma seperated row.
+            
              New line for y.
+             
   Voltage in each compartment
+  
         For each y coordinate
+        
             The concentration of each x coordinate in a comma seperated row.
+            
             New line for y.
+            
   Volume frac in each compartment (excluding extracellular)
+  
      For each y coordinate
+     
          The concentration of each x coordinate in a comma seperated row.
+         
           New line for y.
+          
           
 Repeat for each time step the above.
