@@ -12,6 +12,7 @@ Number x coords, Number of y coords, Number of recorded time steps, Number of co
 It prints the following loop:
 
 Each time step
+
   Concentrations of each ion
   
       in each compartment
