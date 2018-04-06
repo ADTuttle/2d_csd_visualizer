@@ -85,7 +85,8 @@ function loadf_Callback(hObject, eventdata, handles)
 % hObject    handle to loadf (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-[FileName,PathName,~] = uigetfile('../*.txt');
+% [FileName,PathName,~] = uigetfile('../*.txt');
+[FileName,PathName,~] = uigetfile('../../C_Progs/2d_CSD/cmake-build-debug/*.txt');
 
 f=fopen(strcat(PathName,FileName));
 % f=fopen('/Users/Austin/Documents/MATLAB/2d_csd/test.txt');
@@ -272,7 +273,7 @@ if choice==1
         if mod(i,10)==0 %Make the progress bar move
             set(handles.progress,'Value',double(i)/double(Nt));
         end
-        contourf(c(:,:,comp,ion,i),v)
+        contourf(c(:,:,comp,ion,i),v,'linestyle','none')
         caxis([min(v),max(v)])
         colorbar
         if stop %If they press stop, stop.
@@ -298,7 +299,7 @@ elseif choice==3
         if mod(i,10)==0 %Make the progress bar move
            set(handles.progress,'Value',double(i)/double(Nt));
         end
-        contourf(al(:,:,comp,i),v)
+        contourf(al(:,:,comp,i),v,'linestyle','none')
         caxis([min(v),max(v)])
         colorbar
         if stop %If they press stop, stop.
@@ -314,7 +315,7 @@ else
         if mod(i,10)==0 %Make the progress bar move
            set(handles.progress,'Value',double(i)/double(Nt));
         end
-        contourf(phi(:,:,comp,i),v)
+        contourf(phi(:,:,comp,i),v,'linestyle','none')
         caxis([min(v),max(v)])
         colorbar
         if stop %If they press stop, stop.

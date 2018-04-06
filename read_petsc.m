@@ -1,4 +1,5 @@
-[FileName,PathName,~] = uigetfile('../*.txt');
+% [FileName,PathName,~] = uigetfile('../*.txt');
+[FileName,PathName,~] = uigetfile('../../C_Progs/2d_CSD/cmake-build-debug/*.txt');
 
 f=fopen(strcat(PathName,FileName));
 % f=fopen('/Users/Austin/Documents/MATLAB/2d_csd/test.txt');
@@ -62,14 +63,14 @@ end
 end
 
 % close all
-
-v=linspace(min(min(min(c(:,:,1,1,:)))),max(max(max(c(:,:,1,1,:)))),10);
-for i=2:Nt
-    contourf(c(:,:,1,1,i),v)
-    caxis([min(v),max(v)])
-    colorbar
-    pause(.001)
-end
+% 
+% v=linspace(min(min(min(c(:,:,1,1,:)))),max(max(max(c(:,:,1,1,:)))),10);
+% for i=2:Nt
+%     contourf(c(:,:,1,1,i),v)
+%     caxis([min(v),max(v)])
+%     colorbar
+%     pause(.001)
+% end
 % v=linspace(min(min(min(al(:,:,1,:)))),max(max(max(al(:,:,1,:)))),10);
 % for i=2:Nt
 %     contourf(al(:,:,1,i),v)
