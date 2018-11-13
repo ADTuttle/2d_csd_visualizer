@@ -20,28 +20,18 @@ else
     one_var= false; 
 end
 
+
+if(one_var)
+    V=zeros(Nx,Ny,Nt);
+ind=1;
+for t=1:Nt
+            V(:,:,t)=reshape(A(ind,:),Nx,Ny);
+            ind=ind+1;
+end
+else
 c=zeros(Nx,Ny,Nc,Ni,Nt);
 phi=zeros(Nx,Ny,Nc,Nt);
 al=zeros(Nx,Ny,Nc-1,Nt);
-
-if(one_var)
-ind=1;
-for t=1:Nt
-    for j=1:Ni
-        for i=1:Nc
-            c(:,:,i,j,t)=reshape(A(ind,:),Nx,Ny);
-            ind=ind+1;
-        end
-    end
-    
-    for j=1:Nc
-        phi(:,:,j,t)=c(:,:,i,j,t);
-    end
-    for j=1:Nc-1
-        al(:,:,j,t)=c(:,:,i,j,t);
-    end
-end
-else
     ind=1;
 for t=1:Nt
     for j=1:Ni
@@ -62,14 +52,28 @@ for t=1:Nt
 end
 end
 
+% h = figure;
+% axis tight manual % this ensures that getframe() returns a consistent size
+% filename = 'boundary_fast.gif';
 % close all
 % 
-% v=linspace(min(min(min(c(:,:,1,1,:)))),max(max(max(c(:,:,1,1,:)))),10);
+% v=linspace(min(min(min(c(:,:,1,2,:)))),max(max(max(c(:,:,1,2,:)))),50);
 % for i=2:Nt
-%     contourf(c(:,:,1,1,i),v)
+%     contourf(c(:,:,1,2,i),v,'linestyle','none')
 %     caxis([min(v),max(v)])
 %     colorbar
-%     pause(.001)
+%     drawnow 
+%       % Capture the plot as an image 
+%       frame = getframe(h); 
+%       im = frame2im(frame); 
+%       [imind,cm] = rgb2ind(im,256); 
+%       % Write to the GIF File 
+%       if i == 2 
+%           imwrite(imind,cm,filename,'gif', 'Loopcount',inf); 
+%       else 
+%           imwrite(imind,cm,filename,'gif','WriteMode','append'); 
+%       end 
+% %     pause(.001)
 % end
 % v=linspace(min(min(min(al(:,:,1,:)))),max(max(max(al(:,:,1,:)))),10);
 % for i=2:Nt

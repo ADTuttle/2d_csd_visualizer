@@ -1,7 +1,7 @@
 function varargout = csd_read(varargin)
 % CSD_READ MATLAB code for csd_read.fig
 %      CSD_READ, by itself, creates a new CSD_READ or raises the existing
-%      singleton*.
+%      singleton
 %
 %      H = CSD_READ returns the handle to a new CSD_READ or the handle to
 %      the existing singleton*.
@@ -268,14 +268,16 @@ if start_time<2
 end
 if choice==1
     c=data{1};
-    v=linspace(min(min(min(c(:,:,comp,ion,:)))),max(max(max(c(:,:,comp,ion,:)))),10);
+    v=linspace(min(min(min(c(:,:,comp,ion,:)))),max(max(max(c(:,:,comp,ion,:)))),100);
+    [~,cfig]=contourf(c(:,:,comp,ion,start_time),v,'linestyle','none');
+    colormap jet
+    caxis([min(v),max(v)])
+    colorbar
     for i=start_time:Nt
         if mod(i,10)==0 %Make the progress bar move
             set(handles.progress,'Value',double(i)/double(Nt));
         end
-        contourf(c(:,:,comp,ion,i),v,'linestyle','none')
-        caxis([min(v),max(v)])
-        colorbar
+        cfig.ZData=c(:,:,comp,ion,i);
         if stop %If they press stop, stop.
             break
         end
@@ -294,14 +296,16 @@ if choice==1
     end
 elseif choice==3
     al=data{3};
-    v=linspace(min(min(min(al(:,:,comp,:)))),max(max(max(al(:,:,comp,:)))),10);
+    v=linspace(min(min(min(al(:,:,comp,:)))),max(max(max(al(:,:,comp,:)))),100);
+    [~,cfig]=contourf(al(:,:,comp,start_time),v,'linestyle','none');
+    colormap jet
+    caxis([min(v),max(v)])
+    colorbar
     for i=start_time:Nt
         if mod(i,10)==0 %Make the progress bar move
            set(handles.progress,'Value',double(i)/double(Nt));
         end
-        contourf(al(:,:,comp,i),v,'linestyle','none')
-        caxis([min(v),max(v)])
-        colorbar
+        cfig.ZData=al(:,:,comp,i);
         if stop %If they press stop, stop.
             break
         end
@@ -310,14 +314,16 @@ elseif choice==3
     end
 else
     phi=data{2};
-    v=linspace(min(min(min(phi(:,:,comp,:)))),max(max(max(phi(:,:,comp,:)))),10);
+    v=linspace(min(min(min(phi(:,:,comp,:)))),max(max(max(phi(:,:,comp,:)))),100);
+    [~,cfig]=contourf(phi(:,:,comp,start_time),v,'linestyle','none');
+    colormap jet
+    caxis([min(v),max(v)])
+    colorbar
     for i=start_time:Nt
         if mod(i,10)==0 %Make the progress bar move
            set(handles.progress,'Value',double(i)/double(Nt));
         end
-        contourf(phi(:,:,comp,i),v,'linestyle','none')
-        caxis([min(v),max(v)])
-        colorbar
+        cfig.ZData=phi(:,:,comp,i);
         if stop %If they press stop, stop.
             break
         end
