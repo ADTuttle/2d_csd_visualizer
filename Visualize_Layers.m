@@ -1,19 +1,33 @@
-function Visualize_Layers(V,dx,dy,dz,dt)
+function Visualize_Layers(V,Lx,Ly,Lz,dt)
 V=squeeze(V);
+% outputVideo = VideoWriter('3d_vid.avi');
+% outputVideo.FrameRate = 24;
+% open(outputVideo);
 
 [Nx,Ny,Nz,Nt]=size(V);
+dx=Lx/Nx;dy=Ly/Ny;dz=Lz/Nz;
+% Swap so it's descending
+for i=1:floor(Nz/2)
+   temp=V(:,:,i,:);
+   V(:,:,i,:)=V(:,:,Nz-i+1,:);
+   V(:,:,Nz-i+1,:)=temp;
+end
 x=0:dx:(Nx-1)*dx;
 y=0:dy:(Ny-1)*dy;
-z=0:-dz:-(Nz-1)*dz;
-[X,Y,Z]=meshgrid(x,y,z);
+z=-(Nz-1)*dz:dz:0;
+% y=0:Nx-1;
+% x=0:Ny-1;
+% z=0:Nz-1;
+[X,Y,Z]=meshgrid(y,x,z);
 
 xq=0:dx/4:(Nx-1)*dx;
 yq=0:dy/4:(Ny-1)*dy;
-zq=0:-dz:-(Nz-1)*dz;
-[Xq,Yq,Zq]=meshgrid(xq,yq,zq);
-xslice=[max(x)];
-yslice=[max(y)];
-zslice=z;
+zq=-(Nz-1)*dz:dz:0;
+[Xq,Yq,Zq]=meshgrid(yq,xq,zq);
+xslice=[max(y)];
+yslice=[max(x)];
+% zslice=z;
+zslice=z([1,4,13,16]);
 % slice(X,Y,Z,V(:,:,:,10),xslice,yslice,zslice)
 
 lvls = linspace(min(V(:)),max(V(:)),100);
@@ -25,25 +39,35 @@ for t=1:2:Nt
     % slice(X,Y,Z,V(:,:,:,t),xslice,yslice,zslice)
   
    [az,el] = view;
-    
-    h=slice(Xq,Yq,Zq,interp3(X,Y,Z,V(:,:,:,t),Xq,Yq,Zq),xslice,yslice,zslice,'linear');
+   h=slice(X,Y,Z,V(:,:,:,t),xslice,yslice,zslice,'linear');
+
+%     h=slice(Xq,Yq,Zq,interp3(X,Y,Z,V(:,:,:,t),Xq,Yq,Zq),xslice,yslice,zslice,'linear');
     % set(h,'edgecolor','k')
     axis tight
     view(az,el);
     if(t==1)
-        view(-38.5,16)
+%         view(-38.5,16)
+        view(-12.5,6)
+%         view(0,1.2)
     else
         view(az,el)
     end
     %     view(-38.5,16)
-    xlim([min(x),max(x)])
-    ylim([min(y),max(y)])
+    xlim([min(y),max(y)])
+    ylim([min(x),max(x)])
     zlim([min(z),max(z)])
+    caxis([min(lvls),max(lvls)])
     shading interp
     lighting gouraud
     material dull
+    colormap jet
     colorbar
     drawnow
+    
+%     F = getframe(gcf);
+%     [img, Map] = frame2im(F);
+%     writeVideo(outputVideo,img);
+%     disp(t); 
     % pause(.01)
 end
 

@@ -1,4 +1,5 @@
 % [FileName,PathName,~] = uigetfile('../*.txt');
+function [c,phi,al]=read_petsc()
 [FileName,PathName,~] = uigetfile('../../C_Progs/2d_CSD/cmake-build-debug/*.txt');
 
 f=fopen(strcat(PathName,FileName));
@@ -28,6 +29,7 @@ for t=1:Nt
             V(:,:,t)=reshape(A(ind,:),Nx,Ny);
             ind=ind+1;
 end
+         c=V;phi=0;al=0;
 else
 c=zeros(Nx,Ny,Nc,Ni,Nt);
 phi=zeros(Nx,Ny,Nc,Nt);
@@ -89,3 +91,4 @@ end
 %     colorbar
 %     pause(.001)
 % end
+end

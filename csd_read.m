@@ -270,12 +270,15 @@ if choice==1
     c=data{1};
     v=linspace(min(min(min(c(:,:,comp,ion,:)))),max(max(max(c(:,:,comp,ion,:)))),100);
     [~,cfig]=contourf(c(:,:,comp,ion,start_time),v,'linestyle','none');
-    colormap jet
+%     colormap jet
     caxis([min(v),max(v)])
     colorbar
     for i=start_time:Nt
         if mod(i,10)==0 %Make the progress bar move
             set(handles.progress,'Value',double(i)/double(Nt));
+        end
+        if(~isvalid(cfig))
+           break; 
         end
         cfig.ZData=c(:,:,comp,ion,i);
         if stop %If they press stop, stop.
@@ -298,7 +301,7 @@ elseif choice==3
     al=data{3};
     v=linspace(min(min(min(al(:,:,comp,:)))),max(max(max(al(:,:,comp,:)))),100);
     [~,cfig]=contourf(al(:,:,comp,start_time),v,'linestyle','none');
-    colormap jet
+%     colormap jet
     caxis([min(v),max(v)])
     colorbar
     for i=start_time:Nt
@@ -316,7 +319,7 @@ else
     phi=data{2};
     v=linspace(min(min(min(phi(:,:,comp,:)))),max(max(max(phi(:,:,comp,:)))),100);
     [~,cfig]=contourf(phi(:,:,comp,start_time),v,'linestyle','none');
-    colormap jet
+%     colormap jet
     caxis([min(v),max(v)])
     colorbar
     for i=start_time:Nt
